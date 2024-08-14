@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "middleclick",
+  "version": "${version}",
+  "name": "MiddleClick",
+  "description": "A mod that allows you to click with the middle mouse button on versions 1.17+",
+  "authors": [
+    "huper_1"
+  ],
+
+  "contact": {
+  },
+
+  "license": "All-Rights-Reserved",
+  "icon": "assets/middleclick/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.huper_1.middleclick.client.MiddleclickClient"
+    ],
+    "main": [
+      "me.huper_1.middleclick.Middleclick"
+    ]
+  },
+  "mixins": [
+    "middleclick.client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
