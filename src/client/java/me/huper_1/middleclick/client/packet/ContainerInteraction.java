@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class ContainerInteraction {
 
-    public void sendPacket(int slot, int syncId, int revision, int button,
-                           @NotNull SlotActionType actionType, @NotNull ItemStack stack) {
+    public static void sendPacket(int slot, int syncId, int revision, int button,
+                                  @NotNull SlotActionType actionType, @NotNull ItemStack stack) {
 
         var client = MinecraftClient.getInstance();
         var player = client.player;
@@ -21,12 +21,13 @@ public class ContainerInteraction {
         var map = getChangeItems(slot, stack);
         var slotC2SPacket = new ClickSlotC2SPacket(syncId, revision, slot, button, actionType, stack, map);
 
-        if (client.getNetworkHandler() != null) {
-            client.getNetworkHandler().sendPacket(slotC2SPacket);
+        var network = client.getNetworkHandler();
+        if (network != null) {
+            network.sendPacket(slotC2SPacket);
         }
     }
 
-    public Int2ObjectMap<ItemStack> getChangeItems(int slot, ItemStack itemStack) {
+    private static Int2ObjectMap<ItemStack> getChangeItems(int slot, @NotNull ItemStack itemStack) {
         Int2ObjectMap<ItemStack> changeItems = new Int2ObjectOpenHashMap<>();
         changeItems.put(slot, itemStack.copyWithCount(64));
 

@@ -19,7 +19,7 @@ public abstract class HandledScreenMixin {
     @Inject(method = "mouseClicked", at = @At("HEAD"))
     private void clickMouse(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         var client = MinecraftClient.getInstance();
-        ClientPlayerEntity player = client.player;
+        var player = client.player;
 
         if (player != null) {
             if (button == 2) {
@@ -27,8 +27,7 @@ public abstract class HandledScreenMixin {
 
                 if (slot != null) {
                     if (!player.isCreative()) {
-                        var containerInteraction = new ContainerInteraction();
-                        containerInteraction.sendPacket(slot.id, player.currentScreenHandler.syncId,
+                        ContainerInteraction.sendPacket(slot.id, player.currentScreenHandler.syncId,
                                 0, button, SlotActionType.CLONE, slot.getStack());
                     }
                 }
